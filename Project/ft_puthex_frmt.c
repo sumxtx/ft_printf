@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_puthex_frmt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoraes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 11:02:45 by smoraes-          #+#    #+#             */
-/*   Updated: 2024/01/29 00:17:17 by smoraes-         ###   ########.fr       */
+/*   Created: 2024/02/06 17:56:46 by smoraes-          #+#    #+#             */
+/*   Updated: 2024/03/08 13:25:22 by smoraes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr_fd(int n, int fd)
+/*
+	[0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]
+	40732766361216
+	0x7ffee68c1680
+*/
+
+int ft_puthex_frmt(unsigned long n)
 {
-	if (n == -2147483648)
+  static int   count;
+	char  *hextab;
+
+  count = 0;
+  hextab= "0123456789abcdefx";
+	if (n > 9)
 	{
-		ft_putstr_fd("-2147483648", fd);
+		ft_puthex_frmt((n / 16));
 	}
-	else
+	if (n < 10)
 	{
-		if (n < 0)
-		{
-			write(fd, "-", 1);
-			n *= (-1);
-		}
-		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(((n % 10) + '0'), fd);
+		count += ft_putstr("0x");
 	}
+	count += ft_putchar(hextab[n % 16]);
+  return (count);
 }

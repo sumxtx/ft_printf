@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ulong_fd.c                                  :+:      :+:    :+:   */
+/*   ft_puthex_frmt_mayus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoraes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 16:41:37 by smoraes-          #+#    #+#             */
-/*   Updated: 2024/02/06 17:40:42 by smoraes-         ###   ########.fr       */
+/*   Created: 2024/02/06 17:56:46 by smoraes-          #+#    #+#             */
+/*   Updated: 2024/03/08 13:22:58 by smoraes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_put_ulong_fd(unsigned long n, int fd)
+/*
+	[0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]
+	40732766361216
+	0x7ffee68c1680
+*/
+
+int ft_x_mayus(unsigned long n)
 {
+	char *hextab;
+  static int count;
+
+  count = 0;
+  hextab = "0123456789ABCDEFx";
 	if (n > 9)
 	{
-		ft_put_ulong_fd((n / 10),fd);
+		ft_x_mayus((n / 16));
 	}
-	ft_putchar_fd(((n % 10) + '0'), fd);
+	count += ft_putchar(hextab[n % 16]);
+  return (count);
 }

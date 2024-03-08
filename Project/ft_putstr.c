@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_uint_fd.c                                   :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoraes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 17:47:00 by smoraes-          #+#    #+#             */
-/*   Updated: 2024/02/06 17:48:05 by smoraes-         ###   ########.fr       */
+/*   Created: 2024/03/08 02:25:19 by smoraes-          #+#    #+#             */
+/*   Updated: 2024/03/08 03:41:29 by smoraes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_put_uint_fd(unsigned int n, int fd)
+int	ft_putstr(char *s)
 {
-	if (n > 9)
+	int	count;
+
+	count = 0;
+	while (*s != '\0')
 	{
-		ft_put_uint_fd((n / 10),fd);
+		if(write(1,s,1) == -1)
+      count += 0;
+		else
+			count++;
+    s++;
 	}
-	ft_putchar_fd(((n % 10) + '0'), fd);
+  return (count);
 }

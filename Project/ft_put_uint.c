@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_frmt_mayus_fd.c                          :+:      :+:    :+:   */
+/*   ft_put_uint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoraes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 17:56:46 by smoraes-          #+#    #+#             */
-/*   Updated: 2024/02/07 06:04:39 by smoraes-         ###   ########.fr       */
+/*   Created: 2024/02/06 17:47:00 by smoraes-          #+#    #+#             */
+/*   Updated: 2024/03/08 03:16:37 by smoraes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-/*
-	[0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]
-	40732766361216
-	0x7ffee68c1680
-*/
-
-void ft_puthex_frmt_mayus_fd(unsigned long n, int fd)
+int	ft_put_uint(unsigned int n)
 {
-	char hextab[18] = "0123456789ABCDEFx";
+  static int count;
 
+  count = 0;
 	if (n > 9)
 	{
-		ft_puthex_frmt_mayus_fd((n / 16),fd);
+		ft_put_uint((n / 10));
 	}
-	if (n <= 9)
-	{
-		write(fd, &hextab[0], 1);
-		write(fd, &hextab[16], 1);
-	}
-	ft_putchar_fd((hextab[n % 16]), fd);
+	count += ft_putchar((n % 10) + '0');
+  return (count);
 }
